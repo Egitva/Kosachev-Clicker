@@ -1,0 +1,40 @@
+body {
+	background: rgb(255, 255, 255);
+	background-repeat: repeat;
+	background-position: center;
+	font-family: "Oswald", serif;
+	font-optical-sizing: auto;
+	font-weight: 200;
+	font-style: normal;
+}
+#cookie_btn {
+    width: 260px;
+    height: 260px;
+    border: none;
+    padding: 0;
+    outline: none;
+    background-image: url('./img/ks.png');
+    background-size: cover;
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.1s;
+    border-radius: 20%;
+}
+#cookie_btn:hover {
+    background-image: url('./img/ks2.png');
+}
+#cookie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#clicks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50;
+}
+#coockie_btn:active {
+    width: 50px;
+    height: 50px;
+}

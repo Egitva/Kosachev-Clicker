@@ -56,6 +56,73 @@ danila3.onclick = function() {
 
 //fvgesifjiofj
 
+// Slot machine logic
+const slotSymbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '7️⃣'];
+const slots = document.querySelectorAll('#slot-machine .slot');
+const spinButton = document.getElementById('spin-button');
+const slotResult = document.getElementById('slot-result');
+
+function getRandomSymbol() {
+    return slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+}
+
+function checkWin(results) {
+    // Simple win condition: all three symbols match
+    if (results[0] === results[1] && results[1] === results[2]) {
+        return true;
+    }
+    return false;
+}
+
+spinButton.addEventListener('click', () => {
+    // Refresh counter and mnoj from localStorage
+    counter = Number(localStorage.getItem('c1')) || 0;
+    mnoj = 1 + Number(localStorage.getItem('m1')) || 1;
+
+    if (counter < 10) {
+        slotResult.innerText = 'Not enough clicks to spin! Need 10.';
+        return;
+    }
+    // Disable spin button during animation
+    spinButton.disabled = true;
+
+    counter -= 10;
+    clicks.innerText = 'CLICKS: ' + counter;
+    localStorage.setItem('c1', counter);
+
+    let results = [];
+    let animationIntervals = [];
+    let animationDuration = 1000; // 1 second animation
+    let animationStartTime = Date.now();
+
+    slots.forEach((slot, index) => {
+        animationIntervals[index] = setInterval(() => {
+            slot.innerText = getRandomSymbol();
+        }, 100);
+    });
+
+    setTimeout(() => {
+        slots.forEach((slot, index) => {
+            clearInterval(animationIntervals[index]);
+            const finalSymbol = getRandomSymbol();
+            slot.innerText = finalSymbol;
+            results.push(finalSymbol);
+        });
+
+        if (checkWin(results)) {
+            const reward = 100 * mnoj;
+            counter += reward;
+            clicks.innerText = 'CLICKS: ' + counter;
+            localStorage.setItem('c1', counter);
+            slotResult.innerText = 'You win! +' + reward + ' clicks!';
+        } else {
+            slotResult.innerText = 'Try again!';
+        }
+        // Re-enable spin button after animation
+        spinButton.disabled = false;
+    }, animationDuration);
+});
+
 let area = document.querySelector('#box')
 let context = area.getContext("2d")
 

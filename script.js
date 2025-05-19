@@ -1,3 +1,4 @@
+
 let c1 = localStorage.getItem('c1');
 let m1 = localStorage.getItem('m1');
 var counter = 0 + Number(c1);
@@ -194,3 +195,18 @@ area.height = window.innerHeight
 let img_dvd = new Image()
 img_dvd.src = 'img/ратмир.jpg'
 img_dvd.onload = () => (anim.to_right(), anim.to_bottom())
+
+// New code to handle profit calculation based on input points
+const pointsInput = document.getElementById('pointsInput');
+const calculateProfitBtn = document.getElementById('calculateProfitBtn');
+const profitResult = document.getElementById('profitResult');
+
+calculateProfitBtn.addEventListener('click', () => {
+    let inputPoints = Number(pointsInput.value);
+    if (isNaN(inputPoints) || inputPoints < 0) {
+        profitResult.innerText = 'Пожалуйста, введите корректное положительное число очков.';
+        return;
+    }
+    let profit = inputPoints * mnoj;
+    profitResult.innerText = 'Прибыль: ' + profit.toFixed(2) + ' очков';
+});

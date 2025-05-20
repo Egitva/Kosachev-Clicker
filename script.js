@@ -1,4 +1,3 @@
-
 let c1 = localStorage.getItem('c1');
 let m1 = localStorage.getItem('m1');
 var counter = 0 + Number(c1);
@@ -80,21 +79,29 @@ spinButton.addEventListener('click', () => {
     counter = Number(localStorage.getItem('c1')) || 0;
     mnoj = 1 + Number(localStorage.getItem('m1')) || 1;
 
-    if (counter < 10) {
-        slotResult.innerText = 'Not enough clicks to spin! Need 10.';
+    const betInput = document.getElementById('betInput');
+    let bet = Number(betInput.value);
+
+    if (isNaN(bet) || bet <= 0) {
+        slotResult.innerText = 'Пожалуйста, введите корректную ставку больше 0.';
         return;
     }
+
+    if (bet > counter) {
+        slotResult.innerText = 'Недостаточно очков для ставки.';
+        return;
+    }
+
     // Disable spin button during animation
     spinButton.disabled = true;
 
-    counter -= 10;
+    counter -= bet;
     clicks.innerText = 'CLICKS: ' + counter;
     localStorage.setItem('c1', counter);
 
     let results = [];
     let animationIntervals = [];
     let animationDuration = 1000; // 1 second animation
-    let animationStartTime = Date.now();
 
     slots.forEach((slot, index) => {
         animationIntervals[index] = setInterval(() => {
@@ -111,13 +118,36 @@ spinButton.addEventListener('click', () => {
         });
 
         if (checkWin(results)) {
-            const reward = 100 * mnoj;
-            counter += reward;
-            clicks.innerText = 'CLICKS: ' + counter;
-            localStorage.setItem('c1', counter);
-            slotResult.innerText = 'You win! +' + reward + ' clicks!';
+            if (results[0] === '🍒' || '🍋' || '🍊') {
+              const reward = bet * 1000;
+              counter += reward;
+              clicks.innerText = 'CLICKS: ' + counter;
+              localStorage.setItem('c1', counter);
+              slotResult.innerText = 'Вы выиграли! +' + reward.toFixed(2) + ' очков!'; 
+            }
+            else if (results[0] === '🍉') {
+              const reward = bet * 2000;
+              counter += reward;
+              clicks.innerText = 'CLICKS: ' + counter;
+              localStorage.setItem('c1', counter);
+              slotResult.innerText = 'Вы выиграли! +' + reward.toFixed(2) + ' очков!'; 
+            }
+            else if (results[0] === '⭐') {
+              const reward = bet * 5000;
+              counter += reward;
+              clicks.innerText = 'CLICKS: ' + counter;
+              localStorage.setItem('c1', counter);
+              slotResult.innerText = 'Вы выиграли! +' + reward.toFixed(2) + ' очков!'; 
+            }
+            else if (results[0] === '7️⃣') {
+              const reward = bet * 10000;
+              counter += reward;
+              clicks.innerText = 'CLICKS: ' + counter;
+              localStorage.setItem('c1', counter);
+              slotResult.innerText = 'Вы выиграли! +' + reward.toFixed(2) + ' очков!'; 
+            }
         } else {
-            slotResult.innerText = 'Try again!';
+            slotResult.innerText = 'Попробуйте еще раз!';
         }
         // Re-enable spin button after animation
         spinButton.disabled = false;
@@ -195,18 +225,3 @@ area.height = window.innerHeight
 let img_dvd = new Image()
 img_dvd.src = 'img/ратмир.jpg'
 img_dvd.onload = () => (anim.to_right(), anim.to_bottom())
-
-// New code to handle profit calculation based on input points
-const pointsInput = document.getElementById('pointsInput');
-const calculateProfitBtn = document.getElementById('calculateProfitBtn');
-const profitResult = document.getElementById('profitResult');
-
-calculateProfitBtn.addEventListener('click', () => {
-    let inputPoints = Number(pointsInput.value);
-    if (isNaN(inputPoints) || inputPoints < 0) {
-        profitResult.innerText = 'Пожалуйста, введите корректное положительное число очков.';
-        return;
-    }
-    let profit = inputPoints * mnoj;
-    profitResult.innerText = 'Прибыль: ' + profit.toFixed(2) + ' очков';
-});

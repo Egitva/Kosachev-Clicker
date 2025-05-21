@@ -57,7 +57,7 @@ danila3.onclick = function() {
 //fvgesifjiofj
 
 // Slot machine logic
-const slotSymbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '7️⃣'];
+const slotSymbols = ['🍒', '🍋', '🍊', '🍉', '⭐', '7️⃣', '🐶', '💎'];
 const slots = document.querySelectorAll('#slot-machine .slot');
 const spinButton = document.getElementById('spin-button');
 const slotResult = document.getElementById('slot-result');
@@ -141,6 +141,20 @@ spinButton.addEventListener('click', () => {
             }
             else if (results[0] === '7️⃣') {
               const reward = bet * 10000;
+              counter += reward;
+              clicks.innerText = 'CLICKS: ' + counter;
+              localStorage.setItem('c1', counter);
+              slotResult.innerText = 'Вы выиграли! +' + reward.toFixed(2) + ' очков!'; 
+            }
+            else if (results[0] === '🐶') {
+              const reward = bet * 25000;
+              counter += reward;
+              clicks.innerText = 'CLICKS: ' + counter;
+              localStorage.setItem('c1', counter);
+              slotResult.innerText = 'Вы выиграли! +' + reward.toFixed(2) + ' очков!'; 
+            }
+            else if (results[0] === '💎') {
+              const reward = bet * 7000;
               counter += reward;
               clicks.innerText = 'CLICKS: ' + counter;
               localStorage.setItem('c1', counter);

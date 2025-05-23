@@ -53,6 +53,18 @@ danila3.onclick = function() {
         localStorage.setItem('c1', counter);
     }
 }
+danila4.onclick = function() {
+    if (counter >= 1000000000000) {
+        counter -= 1000000000000;
+        clicks.innerText = 'CLICKS: ' + counter;
+        mnoj += 13157894736;
+        mnog.innerText = 'X' + mnoj;
+        localStorage.setItem('m1', mnoj);
+        document.body.style.backgroundImage = "url(img/Reva.jpg)";
+        localStorage.setItem('bab', 1);
+        localStorage.setItem('c1', counter);
+    }
+}
 
 //fvgesifjiofj
 
